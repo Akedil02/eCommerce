@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>JWT Login Test</h2>
+<input id="username" placeholder="username" />
+<input id="password" placeholder="password" type="password" />
+<button onclick="login()">Login</button>
+
+<script>
+    async function login() {
+      const res = await fetch('http://localhost:8080/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('username').value,
+          password: document.getElementById('password').value
+        })
+      });
+      const data = await res.json();
+      console.log('Token:', data.token);
+      alert('Your token: ' + data.token);
+    }
+</script>
+</body>
+</html>
