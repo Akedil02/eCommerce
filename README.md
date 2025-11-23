@@ -144,8 +144,31 @@ Client (Postman / Frontend)
 
   * On create, update, delete operations
   * Automatic expiration after 1 hour
+ 
+## 7. Background Tasks Implementation
+7.1 Overview
 
-## 7. Sample Data
+  * The project includes a background task system to handle asynchronous operations such as:
+  * Sending emails
+  * Processing files
+  * Generating reports
+
+This system ensures that resource-intensive or time-consuming tasks do not block the main request-response flow of the application.
+
+7.2 Technology Stack
+
+  * Spring Boot – application framework
+  * Redis – used as a lightweight message queue
+  * Spring Scheduling & Async – for periodic and asynchronous task execution
+
+7.3 Architecture
+
+  * Task Queue – Redis List structure is used to enqueue tasks.
+  * Task Producer – The controller exposes an endpoint to add tasks to the queue.
+  * Task Consumer – A scheduled asynchronous service pulls tasks from the queue and executes them based on type (EMAIL, REPORT, FILE).
+  * Client Request -> REST Controller -> Redis Queue -> Async Scheduler -> Task Execution
+
+## 8. Sample Data
 
 ### Products
 
@@ -169,7 +192,7 @@ admin@example.com | 123456 | ADMIN
 user@example.com | 123456 | USER
 ```
 
-## 8. API Examples
+## 9. API Examples
 
 ### Login
 
@@ -194,18 +217,18 @@ Header: Authorization: Bearer <token>
 Body: { "userId": 2, "applianceId": 1, "quantity": 1 }
 ```
 
-## 9. Project Setup
+## 10. Project Setup
 
 1. Clone the project repository
 2. Configure database (H2 or PostgreSQL)
 3. Run `Application.java`
 4. Swagger UI: `http://localhost:8080/swagger-ui/index.html`
 
-## 10. Logging and Exception Handling
+## 11. Logging and Exception Handling
 
 * Global exception handler returns JSON error responses
 * Key business operations are logged (product fetch, order creation, login attempts)
 
-## 11. Summary
+## 12. Summary
 
 The project implements a highload-ready backend for an e-commerce system with role-based access, caching, and basic CRUD operations. It can serve as a homework submission for the backend course, demonstrating Spring Boot, JWT, caching, and database integration.
